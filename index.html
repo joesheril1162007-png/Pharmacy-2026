@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MediStock — Pharmacy Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-art">
+      <div class="brand brand-light"><span class="brand-mark">✚</span><span>MediStock</span></div>
+      <div class="art-copy"><span class="eyebrow">PHARMACY OPERATIONS, SIMPLIFIED</span><h1>Care for people.<br><em>Clarity for your business.</em></h1><p>Keep your medicines, inventory, billing and reports in one calm, organized workspace.</p></div>
+      <div class="art-foot">Inventory · Billing · Insights</div>
+    </div>
+    <div class="login-panel">
+      <form id="login-form" class="login-card">
+        <div class="brand"><span class="brand-mark">✚</span><span>MediStock</span></div>
+        <div class="login-heading"><h2>Welcome back</h2><p>Sign in to manage your pharmacy.</p></div>
+        <label>Username<input name="username" value="admin" autocomplete="username" required></label>
+        <label>Password<input name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required></label>
+        <div id="login-error" class="form-error"></div>
+        <button class="btn btn-primary btn-full" type="submit">Sign in <span>→</span></button>
+        <p class="login-hint">First-time demo login: <b>admin</b> / <b>Admin@123</b></p>
+        <p class="login-hint warning">Change the demo password before using real business data.</p>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">✚</span><span>MediStock</span></div>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-page="dashboard"><span>▦</span> Overview</button>
+        <button class="nav-item" data-page="medicines"><span>✚</span> Medicines</button>
+        <button class="nav-item" data-page="billing"><span>▤</span> Billing & sales</button>
+        <button class="nav-item" data-page="reports"><span>▥</span> Reports</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="support-icon">?</div><div><b>Need a hand?</b><small>Use the help notes in the guide.</small></div></div>
+      <div class="user-chip"><div class="avatar" id="user-avatar">A</div><div class="user-info"><b id="user-name">Admin</b><small>Pharmacy administrator</small></div><button id="logout-btn" title="Sign out" class="icon-btn">↗</button></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><button id="menu-toggle" class="icon-btn mobile-menu" aria-label="Open menu">☰</button><div class="breadcrumb">Workspace <span>/</span> <b id="breadcrumb-page">Overview</b></div><div class="top-actions"><span class="today-label" id="today-label"></span><div class="top-avatar">✚</div></div></header>
+      <div class="content">
+        <section id="page-dashboard" class="page">
+          <div class="page-heading"><div><div class="eyebrow">YOUR PHARMACY AT A GLANCE</div><h1>Good day, <span id="greeting-name">Admin</span> 👋</h1><p>Here’s what’s happening in your pharmacy today.</p></div><button class="btn btn-primary" data-go="billing">＋ Create new bill</button></div>
+          <div id="alert-strip" class="alert-strip hidden"></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Total medicines</span><span class="stat-icon mint">✚</span></div><div class="stat-value" id="stat-medicines">—</div><div class="stat-foot">Unique medicine batches</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Today's revenue</span><span class="stat-icon blue">₹</span></div><div class="stat-value" id="stat-revenue">₹0</div><div class="stat-foot"><span id="stat-sales">0 bills</span> generated today</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Low stock items</span><span class="stat-icon amber">⌁</span></div><div class="stat-value" id="stat-low">0</div><div class="stat-foot">At or below reorder level</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Expiry watch</span><span class="stat-icon rose">◷</span></div><div class="stat-value" id="stat-expiry">0</div><div class="stat-foot" id="stat-expiry-foot">Expired or expiring soon</div></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="panel recent-panel"><div class="panel-heading"><div><h3>Recent transactions</h3><p>Your latest pharmacy sales</p></div><button class="text-btn" data-go="billing">View sales →</button></div><div id="recent-sales" class="table-wrap"><div class="empty-state">Loading transactions…</div></div></section>
+            <section class="panel quick-panel"><div class="panel-heading"><div><h3>Quick actions</h3><p>Common tasks, one click away</p></div></div><button class="quick-action" data-go="medicines"><span class="quick-icon mint">✚</span><span><b>Add medicine</b><small>Register a new medicine batch</small></span><span class="quick-arrow">→</span></button><button class="quick-action" data-go="billing"><span class="quick-icon blue">▤</span><span><b>Create a bill</b><small>Sell medicines and print invoice</small></span><span class="quick-arrow">→</span></button><button class="quick-action" data-go="reports"><span class="quick-icon violet">▥</span><span><b>View reports</b><small>Review sales and best sellers</small></span><span class="quick-arrow">→</span></button></section>
+          </div>
+          <div class="panel inventory-note"><span class="note-icon">ⓘ</span><div><b>Inventory reminder</b><p>Review low-stock and expiry alerts before selling. Expired medicines are automatically blocked at checkout.</p></div><button class="text-btn" data-go="medicines">Review inventory →</button></div>
+        </section>
+
+        <section id="page-medicines" class="page hidden">
+          <div class="page-heading"><div><div class="eyebrow">INVENTORY CONTROL</div><h1>Medicines</h1><p>Manage your medicine batches, stock levels and expiry dates.</p></div><button id="add-medicine-btn" class="btn btn-primary">＋ Add medicine</button></div>
+          <div class="panel">
+            <div class="toolbar"><div class="searchbox"><span>⌕</span><input id="medicine-search" placeholder="Search medicine, batch or category…"></div><button id="export-medicines" class="btn btn-secondary">↓ Export CSV</button></div>
+            <div id="medicine-table" class="table-wrap"><div class="empty-state">Loading medicines…</div></div>
+            <div class="table-footer"><span id="medicine-count">0 medicines</span><span>Stock updates are saved to the database.</span></div>
+          </div>
+        </section>
+
+        <section id="page-billing" class="page hidden">
+          <div class="page-heading"><div><div class="eyebrow">POINT OF SALE</div><h1>Billing & sales</h1><p>Create a sale and update stock automatically.</p></div></div>
+          <div class="billing-layout">
+            <section class="panel bill-builder"><div class="panel-heading"><div><h3>New invoice</h3><p>Add available medicines to the bill</p></div><span class="status-pill status-green">● Ready</span></div>
+              <label class="field-label">Customer name <input id="customer-name" placeholder="Walk-in customer"></label>
+              <label class="field-label">Find a medicine <select id="bill-medicine"><option value="">Select a medicine…</option></select></label>
+              <div class="add-line"><label class="field-label">Quantity<input id="bill-quantity" type="number" min="1" value="1"></label><button id="add-to-cart" class="btn btn-secondary">＋ Add item</button></div>
+              <div id="cart-table" class="table-wrap cart-wrap"><div class="empty-state">Your bill is empty. Add a medicine above.</div></div>
+              <div class="bill-bottom"><label class="field-label">Tax (%) <input id="tax-rate" type="number" min="0" max="28" value="0"></label><div class="total-box"><span>Total payable</span><b id="bill-total">₹0.00</b></div></div>
+              <label class="check-label"><input id="prescription-confirmed" type="checkbox"> I have verified any required prescriptions.</label>
+              <button id="complete-sale" class="btn btn-primary btn-full">Complete sale & generate invoice →</button>
+              <p class="small-muted">Prescription-required items need confirmation. Always follow local dispensing rules.</p>
+            </section>
+            <section class="panel sales-panel"><div class="panel-heading"><div><h3>Recent sales</h3><p>Latest invoices recorded</p></div><button id="refresh-sales" class="text-btn">Refresh ↻</button></div><div id="sales-table" class="table-wrap"><div class="empty-state">Loading sales…</div></div></section>
+          </div>
+        </section>
+
+        <section id="page-reports" class="page hidden">
+          <div class="page-heading"><div><div class="eyebrow">BUSINESS INSIGHTS</div><h1>Reports</h1><p>Understand sales performance and popular medicines.</p></div><button id="export-sales" class="btn btn-secondary">↓ Export sales CSV</button></div>
+          <div class="stats-grid report-stats"><article class="stat-card"><div class="stat-top"><span>Sales today</span><span class="stat-icon blue">▤</span></div><div class="stat-value" id="report-today-sales">0</div><div class="stat-foot">Completed invoices</div></article><article class="stat-card"><div class="stat-top"><span>Revenue today</span><span class="stat-icon mint">₹</span></div><div class="stat-value" id="report-today-revenue">₹0</div><div class="stat-foot">Before expenses</div></article></div>
+          <div class="reports-grid"><section class="panel"><div class="panel-heading"><div><h3>Daily revenue</h3><p>Last 30 days</p></div></div><div id="revenue-chart" class="chart-area"></div></section><section class="panel"><div class="panel-heading"><div><h3>Top-selling medicines</h3><p>Based on quantity sold</p></div></div><div id="top-medicines" class="top-list"></div></section></div>
+          <section class="panel report-table-panel"><div class="panel-heading"><div><h3>Daily breakdown</h3><p>Sales totals grouped by day</p></div></div><div id="daily-table" class="table-wrap"></div></section>
+        </section>
+      </div>
+      <footer class="app-footer">MediStock <span>·</span> Pharmacy operations workspace <span class="footer-right">Handle patient and prescription information responsibly.</span></footer>
+    </main>
+  </div>
+
+  <div id="medicine-modal" class="modal-backdrop hidden">
+    <form id="medicine-form" class="modal">
+      <div class="modal-heading"><div><div class="eyebrow">INVENTORY DETAILS</div><h2 id="medicine-modal-title">Add medicine</h2></div><button type="button" id="close-medicine-modal" class="icon-btn">✕</button></div>
+      <input type="hidden" name="id">
+      <div class="form-grid">
+        <label>Medicine name *<input name="name" required maxlength="150"></label>
+        <label>Generic name<input name="generic_name" maxlength="150"></label>
+        <label>Category<select name="category"><option>General</option><option>Tablet</option><option>Capsule</option><option>Syrup</option><option>Injection</option><option>Ointment</option><option>Medical supplies</option><option>Other</option></select></label>
+        <label>Batch number *<input name="batch_no" required maxlength="80"></label>
+        <label>Manufacturer<input name="manufacturer" maxlength="150"></label>
+        <label>Expiry date *<input name="expiry_date" type="date" required></label>
+        <label>Quantity in stock *<input name="quantity" type="number" min="0" step="1" required></label>
+        <label>Reorder level *<input name="reorder_level" type="number" min="0" step="1" value="10" required></label>
+        <label>Unit price (₹) *<input name="unit_price" type="number" min="0" step="0.01" required></label>
+      </div>
+      <label class="check-label modal-check"><input name="prescription_required" type="checkbox"> Prescription required</label>
+      <div id="medicine-form-error" class="form-error"></div>
+      <div class="modal-actions"><button type="button" id="cancel-medicine" class="btn btn-secondary">Cancel</button><button class="btn btn-primary" type="submit">Save medicine</button></div>
+    </form>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
